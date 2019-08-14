@@ -13,7 +13,7 @@ The kube config must be set as the environment variable KUBECONFIG
 
 Set the API key in the environment variable SLACK_API_KEY and then set the channel to send to in the environment variable SLACK_CHANNEL
 
-## Doccker command
+## Docker command
 
 docker run --rm -e KUBECONFIG=the_config -e SLACK_API_KEY=the_key -e SLACK_CHANNEL=channel mskjeret/ingress-http-poller:latest
 
