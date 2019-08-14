@@ -7,7 +7,7 @@ Currently it requires a Slack integration and hence need an API key and a channe
 
 ## The kube config
 
-The kube config must be set as the environment variable KUBECONFIG
+The kube config must be mounted as a file in the container
 
 ## Slack integration
 
@@ -15,7 +15,7 @@ Set the API key in the environment variable SLACK_API_KEY and then set the chann
 
 ## Docker command
 
-docker run --rm -e KUBECONFIG=the_config -e SLACK_API_KEY=the_key -e SLACK_CHANNEL=channel mskjeret/ingress-http-poller:latest
+docker run --rm -v $KUBECONFIG=/root/.kube/config -e SLACK_API_KEY=the_key -e SLACK_CHANNEL=channel mskjeret/ingress-http-poller:latest
 
 
 

